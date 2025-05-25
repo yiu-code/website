@@ -32,7 +32,12 @@ jobs:
 
     - name: 🧹 Clean old build files from root
       run: |
-        rm -rf ./_nuxt ./index.html ./favicon.ico
+        rm -rf ./_nuxt
+        rm -f ./index.html
+        rm -f ./favicon.ico
+        rm -f ./200.html
+        rm -f ./robots.txt
+        rm -f ./sitemap.xml
 
     - name: 📁 Move build output to root
       run: |
