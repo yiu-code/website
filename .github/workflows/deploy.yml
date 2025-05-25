@@ -11,39 +11,50 @@ on:
       - main
       - master
 
+name: Build and Deploy Nuxt 3 to GitHub Pages
+
+on:
+  push:
+    branches:
+      - master
+
 jobs:
-  build_and_deploy:
+  build-deploy:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-          submodules: false
+    - name: 📥 Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '22.16.0'
-          cache: 'npm'
+    - name: 🟢 Set up Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.16
 
-      - name: Install dependencies
-        run: npm ci
+    - name: 📦 Install dependencies
+      run: npm ci
 
-      - name: Generate static site
-        run: npm run generate
+    - name: 🛠️ Build the Nuxt app
+      run: npm run build
 
-      - name: Prepare /docs folder
-        run: |
-          rm -rf docs
-          mv dist docs
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add docs
-          git diff --quiet && git diff --staged --quiet || git commit -m "chore: update docs [skip ci]"
+    - name: 📁 Move build output to docs/
+      run: |
+        rm -rf docs
+        mkdir -p docs
+        cp -r .output/public/* docs/
 
-      - name: Push changes
-        uses: ad-m/github-push-action@v0.6.0
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: master
+    - name: ➕ Add .nojekyll
+      run: touch docs/.nojekyll
+
+    - name: 🔐 Configure Git
+      run: |
+        git config user.name "github-actions[bot]"
+        git config user.email "github-actions[bot]@users.noreply.github.com"
+
+    - name: 📤 Commit and push docs/
+      run: |
+        git add docs
+        git commit -m "Deploy site to GitHub Pages"
+        git push
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
