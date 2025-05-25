@@ -1,5 +1,10 @@
 name: Build & Deploy Website
 
+permissions:
+  contents: write       # for checkout and publishing
+  pages: write          # for GitHub Pages deployment
+  id-token: write       # if using OIDC
+
 on:
   push:
     branches:
