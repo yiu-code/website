@@ -38,6 +38,8 @@ jobs:
         rm -f ./200.html
         rm -f ./robots.txt
         rm -f ./sitemap.xml
+        rm -rf ./fonts
+        rm -f ./404.html
 
     - name: 📁 Move build output to root
       run: |
