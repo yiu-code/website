@@ -40,11 +40,12 @@ jobs:
         rm -f ./sitemap.xml
         rm -rf ./fonts
         rm -f ./404.html
+        rm -rf .docs
 
     - name: 📁 Move build output to root
       run: |
         shopt -s dotglob
-        mv .output/public/* .
+        mv .output/public/* ./docs
         rm -rf .output
         touch .nojekyll
 
