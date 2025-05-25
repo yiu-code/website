@@ -3,7 +3,7 @@ name: CI/CD: Build & Deploy Nuxt 3
 on:
   push:
     branches:
-      - master
+      - main
 
 jobs:
   deploy:
@@ -11,13 +11,18 @@ jobs:
     steps:
       # 1️⃣ Checkout code
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
+        with:
+          # Disable submodules to avoid errors if .gitmodules exists
+          submodules: false
+          # Ensure full history if needed
+          fetch-depth: 0
 
       # 2️⃣ Setup Node.js
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: '22.16.0'
           cache: 'npm'
 
       # 3️⃣ Install dependencies
