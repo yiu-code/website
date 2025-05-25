@@ -1,5 +1,9 @@
 <template>
-  <div>
-    <h1>Work in Progress! Lemme Cook</h1>
-  </div>
+    <NuxtLayout>
+      <NuxtPage />
+    </NuxtLayout>
 </template>
+
+<style lang="css">
+
+</style>

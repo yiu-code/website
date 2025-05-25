@@ -15,6 +15,12 @@ export default defineNuxtConfig({
     strict: true
   },
 
+  components: [
+    { path: '~/components', pathPrefix: false },
+  ],
+
+  css: ['@/assets/styles/main.scss'],
+
   nitro: {
     preset: 'static'
   }
