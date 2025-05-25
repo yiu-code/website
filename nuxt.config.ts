@@ -7,7 +7,7 @@ export default defineNuxtConfig({
 
   // Base URL for GitHub Pages (replace repository name)
   app: {
-    baseURL: '/website'
+    baseURL: '/'
   },
 
   // Enable strict TypeScript checks (optional but recommended)
