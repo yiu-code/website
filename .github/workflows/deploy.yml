@@ -28,16 +28,13 @@ jobs:
       run: npm ci
 
     - name: 🛠️ Build the Nuxt app
-      run: npm run build
+      run: npm run generate
 
-    - name: 📁 Move build output to docs/
+    - name: 📁 Move build output to root
       run: |
-        rm -rf docs
-        mkdir -p docs
-        cp -r .output/public/* docs/
-
-    - name: ➕ Add .nojekyll
-      run: touch docs/.nojekyll
+        rsync -a --delete .output/public/ .
+        rm -rf .output
+        touch .nojekyll
 
     - name: 🔐 Configure Git
       run: |
