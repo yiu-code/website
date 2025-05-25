@@ -32,8 +32,7 @@ jobs:
 
     - name: 📁 Move build output to root
       run: |
-        shopt -s dotglob
-        mv .output/public/* .
+        rsync -a --delete .output/public/ .
         rm -rf .output
         touch .nojekyll
 
