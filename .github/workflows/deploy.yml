@@ -40,7 +40,7 @@ jobs:
         rm -f ./sitemap.xml
         rm -rf ./fonts
         rm -f ./404.html
-        rm -rf .docs
+        rm -rf ./docs/*
 
     - name: 📁 Move build output to root
       run: |
