@@ -28,26 +28,24 @@ jobs:
       run: npm ci
 
     - name: 🛠️ Build the Nuxt app
-      run: npm run build
+      run: npm run generate
 
-    - name: 📁 Move build output to docs/
+    - name: 📁 Move build output to root
       run: |
-        rm -rf docs
-        mkdir -p docs
-        cp -r .output/public/* docs/
-
-    - name: ➕ Add .nojekyll
-      run: touch docs/.nojekyll
+        shopt -s dotglob
+        mv .output/public/* .
+        rm -rf .output
+        touch .nojekyll
 
     - name: 🔐 Configure Git
       run: |
         git config user.name "github-actions[bot]"
         git config user.email "github-actions[bot]@users.noreply.github.com"
 
-    - name: 📤 Commit and push docs/
+    - name: 📤 Commit and push to master
       run: |
-        git add docs
-        git commit -m "Deploy site to GitHub Pages"
+        git add -A
+        git commit -m "Deploy site to GitHub Pages" || echo "Nothing to commit"
         git push
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
