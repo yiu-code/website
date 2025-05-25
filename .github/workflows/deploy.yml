@@ -11,13 +11,6 @@ on:
       - main
       - master
 
-name: Build and Deploy Nuxt 3 to GitHub Pages
-
-on:
-  push:
-    branches:
-      - master
-
 jobs:
   build-deploy:
     runs-on: ubuntu-latest
